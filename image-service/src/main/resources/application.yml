@@ -1,0 +1,28 @@
+server:
+  port: 9000
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: image-service
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8888/eureka
+    registry-fetch-interval-seconds: 5
+  instance:
+    prefer-ip-address: true
+    ip-address: 127.0.0.1
+    instance-id: ${spring.application.name}:${server.port}
+
+
+objectStorage:
+  provider: tencent
+  settings:
+    #endpoint: http://oss-cn-shanghai.aliyuncs.com
+    #accessKeyId: LTAIXQEkOTTNNAL8
+    #accessKeySecret: VBObop1e5R5zM4i6qbKQIE4gKB4fgi
+    #bucketName: uat-picture
+    authenticatedBucketName: dev-dae
+    anonymousBucketName: prod-dae-static

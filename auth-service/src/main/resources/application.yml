@@ -1,0 +1,18 @@
+server:
+  port: 9001
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: auth-service
+  profiles:
+    active: ''
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8888/eureka
+    registry-fetch-interval-seconds: 5
+  instance:
+    prefer-ip-address: true
+    ip-address: 127.0.0.1
+    instance-id: ${spring.application.name}:${server.port}

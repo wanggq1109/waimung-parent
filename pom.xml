@@ -6,6 +6,8 @@
     <modules>
         <module>waimung-eureka</module>
         <module>waimung-gateway</module>
+        <module>auth-service</module>
+        <module>image-service</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -25,6 +27,9 @@
         <mysql.version>5.1.17</mysql.version>
         <fastDFS.client.version>1.26.1-RELEASE</fastDFS.client.version>
         <druid.version>1.1.0</druid.version>
+        <easy.mapper.version>1.0.4</easy.mapper.version>
+        <cos.api.version>5.2.4</cos.api.version>
+        <qcloud.java.sdk.version>2.0.1</qcloud.java.sdk.version>
     </properties>
 
     <dependencies>
@@ -73,6 +78,21 @@
                 <groupId>com.alibaba</groupId>
                 <artifactId>druid-spring-boot-starter</artifactId>
                 <version>${druid.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baidu.unbiz</groupId>
+                <artifactId>easy-mapper</artifactId>
+                <version>${easy.mapper.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.qcloud</groupId>
+                <artifactId>cos_api</artifactId>
+                <version>${cos.api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.qcloud</groupId>
+                <artifactId>qcloud-java-sdk</artifactId>
+                <version>${qcloud.java.sdk.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
