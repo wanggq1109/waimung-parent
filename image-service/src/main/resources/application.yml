@@ -20,9 +20,8 @@ eureka:
 object-storage:
   provider: tencent
   settings:
-    #endpoint: http://oss-cn-shanghai.aliyuncs.com
-    #accessKeyId: LTAIXQEkOTTNNAL8
-    #accessKeySecret: VBObop1e5R5zM4i6qbKQIE4gKB4fgi
-    #bucketName: uat-picture
-    authenticatedBucketName: dev-dae
+    accessKey: AKIDzxpaEjnVgNw3ymHuRqPwr54LUR12AKdT
+    secretKey: nJtJbxmqfWAIg6rrSBdmFjIF9namBhts
+    bucketName: wmpicture-1256286187
+    region: ap-shanghai
     anonymousBucketName: prod-dae-static

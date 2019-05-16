@@ -9,7 +9,6 @@ import java.util.Map;
 @ConfigurationProperties(prefix = "object-storage")
 public class ObjectStorageProperties {
 
-
     private String provider;
 
     private Map<String, String> settings;
