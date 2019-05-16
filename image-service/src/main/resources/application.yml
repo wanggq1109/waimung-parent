@@ -17,7 +17,7 @@ eureka:
     instance-id: ${spring.application.name}:${server.port}
 
 
-objectStorage:
+object-storage:
   provider: tencent
   settings:
     #endpoint: http://oss-cn-shanghai.aliyuncs.com
