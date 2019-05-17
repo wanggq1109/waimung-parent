@@ -40,17 +40,20 @@ public class TencentOSSService implements ObjectStorageService {
             COSCredentials cred = new BasicCOSCredentials(accessKey, secretKey);
             ClientConfig clientConfig = new ClientConfig(new Region(region));
             cosClient = new COSClient(cred,clientConfig);
-
+            key = subBucketName.concat("/")+key;
             String realBucketName = Boolean.TRUE.equals(BucketConstants.authorize(subBucketName)) ? bucketName : anonymousBucketName;
-            if (StringUtils.isNotBlank(subBucketName)) {
-                realBucketName = realBucketName.concat("/").concat(StringUtils.strip(subBucketName, "/"));
+              if (StringUtils.isNotBlank(subBucketName)) {
+                realBucketName = bucketName;
+
             }
             ObjectMetadata objectMetadata = new ObjectMetadata();
             objectMetadata.setContentLength(content.length);
             objectMetadata.setContentType(contentType);
-            cosClient.putObject(bucketName, key, new ByteArrayInputStream(content), objectMetadata);
+            cosClient.putObject(realBucketName, key, new ByteArrayInputStream(content), objectMetadata);
 
-            return key;
+           String newKey = StringUtils.strip(StringUtils.replace(key, "/", "_"), "_");
+           return newKey;
+
         } catch (CosClientException oe) {
             logger.error("failed to put object,Message:{}", oe.getMessage());
             throw new RuntimeException("failed to put object", oe);
@@ -70,7 +73,8 @@ public class TencentOSSService implements ObjectStorageService {
             COSCredentials cred = new BasicCOSCredentials(accessKey, secretKey);
             ClientConfig clientConfig = new ClientConfig(new Region(region));
             cosClient = new COSClient(cred,clientConfig);
-            COSObject ossObject = cosClient.getObject(bucketName, key);
+            String newKey = StringUtils.strip(StringUtils.replace(key, "_", "/"), "/");
+            COSObject ossObject = cosClient.getObject(bucketName, newKey);
             in = ossObject.getObjectContent();
             content = ByteStreams.toByteArray(in);
         } catch (CosClientException oe) {

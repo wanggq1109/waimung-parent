@@ -27,9 +27,17 @@ public class ImageController {
     @Autowired
     private ObjectStorageService objectStorageService;
 
+    /**
+     * 统一的上传图片api
+     * @param file
+     * @param userId
+     * @param subBucketName
+     * @return
+     * @throws IOException
+     */
     @RequestMapping(value = "/image", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String uploadImage(@RequestParam("file") MultipartFile file,
-                              @RequestParam(value = "user_id", required = false) Integer userId, @RequestParam(value = "subBucketName") String subBucketName) throws IOException {
+                              @RequestParam(value = "user_id", required = false) Long userId, @RequestParam(value = "subBucketName") String subBucketName) throws IOException {
         byte[] fileContent = convert2Png(file.getBytes());
         String key = UUID.randomUUID().toString() + (userId != null ?
                 ("@" + org.springframework.util.DigestUtils.md5DigestAsHex(String.valueOf(userId).getBytes())) : StringUtils.EMPTY);
@@ -39,6 +47,12 @@ public class ImageController {
         return realKey;
     }
 
+    /**
+     * 获取图片文件
+     * @param user
+     * @param key
+     * @return
+     */
     @RequestMapping(value = "/image/{key}", method = RequestMethod.GET, produces = MediaType.IMAGE_PNG_VALUE)
     public byte[] getImage(User user, @PathVariable String key) {
         if (key.contains("@")) {
