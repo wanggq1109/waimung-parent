@@ -1,16 +1,13 @@
 package com.waimung.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "users")
 public class User {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue
     private Long id;
 
     private String userName;
@@ -19,11 +16,7 @@ public class User {
 
     private String email;
 
-    private String emailVerified;
-
     private String phone;
-
-    private String phoneVerified;
 
     private String password;
 
@@ -37,7 +30,8 @@ public class User {
 
     private String touchId;
 
-    private Date registAt;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date registAt = new Date();
 
     private Date updateAt;
 
@@ -70,18 +64,6 @@ public class User {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getEmailVerified() {
-        return emailVerified;
-    }
-
-    public void setEmailVerified(String emailVerified) {
-        this.emailVerified = emailVerified;
-    }
-
     public String getPhone() {
         return phone;
     }
@@ -90,13 +72,10 @@ public class User {
         this.phone = phone;
     }
 
-    public String getPhoneVerified() {
-        return phoneVerified;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
-    public void setPhoneVerified(String phoneVerified) {
-        this.phoneVerified = phoneVerified;
-    }
 
     public String getPassword() {
         return password;

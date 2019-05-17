@@ -1,25 +1,44 @@
 server:
   port: 8082
-eureka:
-  instance:
-    prefer-ip-address: true
-      ip-address: 127.0.0.1
-      instance-id: ${spring.application.name}:${server.port}
-  client:
-    service-url:
-      defaultZone: http://127.0.0.1:8888/eureka
-    register-with-eureka: true
-    fetch-registry: true
+
 
 spring:
   application:
     name: user-service
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/oauth-example?useUnicode=true&characterEncoding=UTF-8&characterSetResults=UTF-8&useSSL=false
+    url: jdbc:mysql://localhost:3306/oauthdemo?useUnicode=true&characterEncoding=UTF-8&characterSetResults=UTF-8&useSSL=false
     username: root
-    password: root
+    password: goldfish
   jpa:
-    hibernate:
-      ddl-auto: update
     show-sql: true
+    generate-ddl: true
+    hibernate:
+      naming:
+        implicit-strategy: com.waimung.support.BunionNamingStrategy
+    properties:
+      hibernate:
+        format_sql: true
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:8888/eureka
+    registry-fetch-interval-seconds: 5
+  instance:
+    prefer-ip-address: true
+    ip-address: 127.0.0.1
+    instance-id: ${spring.application.name}:${server.port}
+
+ribbon:
+  ConnectTimeout: 250 #连接超时时间(ms)
+  ReadTimeout: 2000 #通信超时时间(ms)
+  OkToRetryOnAllOperations: true #是否对所有操作重试
+  MaxAutoRetriesNextServer: 1 #同一服务不同实例的重试次数
+  MaxAutoRetries: 1 #同一实例的重试次数
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMillisecond: 10000 #熔断超时时长（1000ms）
