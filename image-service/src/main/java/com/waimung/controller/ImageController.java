@@ -18,6 +18,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.UUID;
+
 @RestController
 public class ImageController {
 
@@ -29,6 +30,7 @@ public class ImageController {
 
     /**
      * 统一的上传图片api
+     *
      * @param file
      * @param userId
      * @param subBucketName
@@ -49,6 +51,7 @@ public class ImageController {
 
     /**
      * 获取图片文件
+     *
      * @param user
      * @param key
      * @return
@@ -57,7 +60,7 @@ public class ImageController {
     public byte[] getImage(User user, @PathVariable String key) {
         if (key.contains("@")) {
             if (!DigestUtils.md5DigestAsHex(String.valueOf(user.getId()).getBytes()).equals(key.substring(key.indexOf("@") + 1))) {
-               // throw new StandardBusinessException(ErrorCode.INVALID_IMAGE);
+                // throw new StandardBusinessException(ErrorCode.INVALID_IMAGE);
             }
         }
         return objectStorageService.getObject(key);
@@ -78,7 +81,7 @@ public class ImageController {
             //throw new StandardBusinessException("IMAGE_FORMAT_CONVERSION_ERROR");
         }
 
-        return  null;
+        return null;
     }
 
 }
