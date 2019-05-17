@@ -10,7 +10,6 @@ import com.qcloud.cos.model.COSObject;
 import com.qcloud.cos.model.ObjectMetadata;
 import com.qcloud.cos.region.Region;
 import com.waimung.constant.BucketConstants;
-import com.waimung.utils.BucketUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,7 +17,6 @@ import org.slf4j.LoggerFactory;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Map;
 
 public class TencentOSSService implements ObjectStorageService {
 
@@ -44,18 +42,15 @@ public class TencentOSSService implements ObjectStorageService {
             cosClient = new COSClient(cred,clientConfig);
 
             String realBucketName = Boolean.TRUE.equals(BucketConstants.authorize(subBucketName)) ? bucketName : anonymousBucketName;
-            String bucketName = realBucketName;
             if (StringUtils.isNotBlank(subBucketName)) {
                 realBucketName = realBucketName.concat("/").concat(StringUtils.strip(subBucketName, "/"));
             }
             ObjectMetadata objectMetadata = new ObjectMetadata();
             objectMetadata.setContentLength(content.length);
             objectMetadata.setContentType(contentType);
-
             cosClient.putObject(bucketName, key, new ByteArrayInputStream(content), objectMetadata);
-            String newKey = StringUtils.replace(realBucketName.concat("_").concat(key), bucketName, "");
-            newKey = StringUtils.strip(StringUtils.replace(newKey, "/", "_"), "_");
-            return newKey;
+
+            return key;
         } catch (CosClientException oe) {
             logger.error("failed to put object,Message:{}", oe.getMessage());
             throw new RuntimeException("failed to put object", oe);
@@ -75,8 +70,7 @@ public class TencentOSSService implements ObjectStorageService {
             COSCredentials cred = new BasicCOSCredentials(accessKey, secretKey);
             ClientConfig clientConfig = new ClientConfig(new Region(region));
             cosClient = new COSClient(cred,clientConfig);
-            Map<String, String> map = BucketUtils.splitKey(anonymousBucketName, key);
-            COSObject ossObject = cosClient.getObject(map.get("bucketName"), map.get("key"));
+            COSObject ossObject = cosClient.getObject(bucketName, key);
             in = ossObject.getObjectContent();
             content = ByteStreams.toByteArray(in);
         } catch (CosClientException oe) {
