@@ -13,11 +13,13 @@ import com.waimung.constant.BucketConstants;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
+@Service
 public class TencentOSSService implements ObjectStorageService {
 
     private static final Logger logger = LoggerFactory.getLogger(TencentOSSService.class);

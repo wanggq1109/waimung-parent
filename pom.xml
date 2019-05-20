@@ -9,6 +9,7 @@
         <module>auth-service</module>
         <module>image-service</module>
         <module>user-service</module>
+        <module>waimung-common</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

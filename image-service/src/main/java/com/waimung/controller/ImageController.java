@@ -1,7 +1,9 @@
 package com.waimung.controller;
 
+import com.fire.waimung.common.exception.StandardBusinessException;
 import com.waimung.domain.User;
 import com.waimung.service.ObjectStorageService;
+import com.waimung.utils.ErrorCode;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -60,7 +62,7 @@ public class ImageController {
     public byte[] getImage(User user, @PathVariable String key) {
         if (key.contains("@")) {
             if (!DigestUtils.md5DigestAsHex(String.valueOf(user.getId()).getBytes()).equals(key.substring(key.indexOf("@") + 1))) {
-                // throw new StandardBusinessException(ErrorCode.INVALID_IMAGE);
+                throw new StandardBusinessException(ErrorCode.INVALID_IMAGE);
             }
         }
         return objectStorageService.getObject(key);
@@ -78,10 +80,8 @@ public class ImageController {
             return pngBytes;
         } catch (IOException exception) {
             log.error("Error occurs while converting file format", exception);
-            //throw new StandardBusinessException("IMAGE_FORMAT_CONVERSION_ERROR");
+            throw new StandardBusinessException("IMAGE_FORMAT_CONVERSION_ERROR");
         }
-
-        return null;
     }
 
 }
