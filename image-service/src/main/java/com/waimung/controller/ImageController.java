@@ -42,7 +42,7 @@ public class ImageController {
      */
     @RequestMapping(value = "/image", method = RequestMethod.POST, consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public String uploadImage(@RequestParam("file") MultipartFile file,
-                              @RequestParam(value = "user_id", required = false) Long userId, @RequestParam(value = "subBucketName") String subBucketName) throws IOException {
+                              @RequestParam(value = "userId", required = false) Long userId, @RequestParam(value = "subBucketName") String subBucketName) throws IOException {
         byte[] fileContent = convert2Png(file.getBytes());
         String key = UUID.randomUUID().toString() + (userId != null ?
                 ("@" + org.springframework.util.DigestUtils.md5DigestAsHex(String.valueOf(userId).getBytes())) : StringUtils.EMPTY);
@@ -55,14 +55,14 @@ public class ImageController {
     /**
      * 获取图片文件
      *
-     * @param user
+     * @param userId
      * @param key
      * @return
      */
     @RequestMapping(value = "/image/{key}", method = RequestMethod.GET, produces = MediaType.IMAGE_PNG_VALUE)
-    public byte[] getImage(User user, @PathVariable String key) {
+    public byte[] getImage(Long userId, @PathVariable String key) {
         if (key.contains("@")) {
-            if (!DigestUtils.md5DigestAsHex(String.valueOf(user.getId()).getBytes()).equals(key.substring(key.indexOf("@") + 1))) {
+            if (!DigestUtils.md5DigestAsHex(String.valueOf(userId).getBytes()).equals(key.substring(key.indexOf("@") + 1))) {
                 throw new StandardBusinessException(ErrorCode.INVALID_IMAGE);
             }
         }
