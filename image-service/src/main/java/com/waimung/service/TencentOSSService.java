@@ -19,7 +19,6 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-@Service
 public class TencentOSSService implements ObjectStorageService {
 
     private static final Logger logger = LoggerFactory.getLogger(TencentOSSService.class);
