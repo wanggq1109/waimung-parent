@@ -1,12 +1,8 @@
 server:
   port: 7777
 spring:
-  main:
-    allow-bean-definition-overriding: true
   application:
     name: gateway
-  profiles:
-    active: ''
   cloud:
     gateway:
       routes:
