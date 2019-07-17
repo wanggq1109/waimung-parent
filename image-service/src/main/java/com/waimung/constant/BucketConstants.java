@@ -14,7 +14,7 @@ public class BucketConstants {
 
     public static final String KYC_VIDEO = "video/kyc";
 
-    private static final Map<String,Boolean> authorizes=new HashMap<>();
+    private static final Map<String, Boolean> authorizes = new HashMap<>();
 
     static {
         authorizes.put(AVATAR,Boolean.TRUE);
@@ -23,8 +23,8 @@ public class BucketConstants {
         authorizes.put(KYC_VIDEO,Boolean.TRUE);
     }
 
-    public static Boolean authorize(String key){
-        if(authorizes.containsKey(key)){
+    public static Boolean authorize(String key) {
+        if (authorizes.containsKey(key)) {
             return authorizes.get(key);
         }
         return Boolean.TRUE;

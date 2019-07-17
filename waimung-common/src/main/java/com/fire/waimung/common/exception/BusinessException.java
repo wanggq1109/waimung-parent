@@ -1,6 +1,6 @@
 package com.fire.waimung.common.exception;
 
-public abstract class BusinessException extends  RuntimeException{
+public abstract class BusinessException extends RuntimeException {
 
     public BusinessException() {
     }
@@ -9,15 +9,15 @@ public abstract class BusinessException extends  RuntimeException{
         super(message);
     }
 
-    public BusinessException(String message, Throwable cause) {
-        super(message, cause);
+    public BusinessException(String message,Throwable cause) {
+        super(message,cause);
     }
 
     public BusinessException(Throwable cause) {
         super(cause);
     }
 
-    protected BusinessException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
+    protected BusinessException(String message,Throwable cause,boolean enableSuppression,boolean writableStackTrace) {
+        super(message,cause,enableSuppression,writableStackTrace);
     }
 }

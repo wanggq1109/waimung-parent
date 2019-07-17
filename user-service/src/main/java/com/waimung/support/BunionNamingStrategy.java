@@ -7,7 +7,7 @@ import org.hibernate.boot.spi.MetadataBuildingContext;
 public class BunionNamingStrategy extends ImplicitNamingStrategyJpaCompliantImpl {
 
     @Override
-    protected Identifier toIdentifier(String stringForm, MetadataBuildingContext buildingContext) {
-        return super.toIdentifier("wm_"+stringForm, buildingContext);
+    protected Identifier toIdentifier(String stringForm,MetadataBuildingContext buildingContext) {
+        return super.toIdentifier("wm_" + stringForm,buildingContext);
     }
 }

@@ -9,9 +9,9 @@ public class ObjectStorageConfiguration {
 
 
     @Bean
-    public static ObjectStorageService createObjectStorageService(ObjectStorageProperties properties){
+    public static ObjectStorageService createObjectStorageService(ObjectStorageProperties properties) {
         ObjectStorageAbstractFactory factory = null;
-        if(properties.getProvider().equals("tencent")){
+        if (properties.getProvider().equals("tencent")) {
             factory = ObjectStorageAbstractFactory.getFactory(ObjectStorageAbstractFactory.ServiceProvider.TENCENT);
         }
         return factory.createObjectStorageService(properties);

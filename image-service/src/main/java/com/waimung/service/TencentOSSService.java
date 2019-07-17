@@ -23,7 +23,7 @@ public class TencentOSSService implements ObjectStorageService {
 
     private static final Logger logger = LoggerFactory.getLogger(TencentOSSService.class);
 
-    private String  accessKey;
+    private String accessKey;
 
     private String secretKey;
 
@@ -35,29 +35,29 @@ public class TencentOSSService implements ObjectStorageService {
 
 
     @Override
-    public String putObject(String subBucketName, String key, byte[] content, String contentType) {
+    public String putObject(String subBucketName,String key,byte[] content,String contentType) {
         COSClient cosClient = null;
         try {
-            COSCredentials cred = new BasicCOSCredentials(accessKey, secretKey);
+            COSCredentials cred = new BasicCOSCredentials(accessKey,secretKey);
             ClientConfig clientConfig = new ClientConfig(new Region(region));
             cosClient = new COSClient(cred,clientConfig);
-            key = subBucketName.concat("/")+key;
+            key = subBucketName.concat("/") + key;
             String realBucketName = Boolean.TRUE.equals(BucketConstants.authorize(subBucketName)) ? bucketName : anonymousBucketName;
-              if (StringUtils.isNotBlank(subBucketName)) {
+            if (StringUtils.isNotBlank(subBucketName)) {
                 realBucketName = bucketName;
 
             }
             ObjectMetadata objectMetadata = new ObjectMetadata();
             objectMetadata.setContentLength(content.length);
             objectMetadata.setContentType(contentType);
-            cosClient.putObject(realBucketName, key, new ByteArrayInputStream(content), objectMetadata);
+            cosClient.putObject(realBucketName,key,new ByteArrayInputStream(content),objectMetadata);
 
-           String newKey = StringUtils.strip(StringUtils.replace(key, "/", "_"), "_");
-           return newKey;
+            String newKey = StringUtils.strip(StringUtils.replace(key,"/","_"),"_");
+            return newKey;
 
         } catch (CosClientException oe) {
-            logger.error("failed to put object,Message:{}", oe.getMessage());
-            throw new RuntimeException("failed to put object", oe);
+            logger.error("failed to put object,Message:{}",oe.getMessage());
+            throw new RuntimeException("failed to put object",oe);
         } finally {
             cosClient.shutdown();
         }
@@ -71,18 +71,18 @@ public class TencentOSSService implements ObjectStorageService {
         InputStream in = null;
         byte[] content = null;
         try {
-            COSCredentials cred = new BasicCOSCredentials(accessKey, secretKey);
+            COSCredentials cred = new BasicCOSCredentials(accessKey,secretKey);
             ClientConfig clientConfig = new ClientConfig(new Region(region));
             cosClient = new COSClient(cred,clientConfig);
-            String newKey = StringUtils.strip(StringUtils.replace(key, "_", "/"), "/");
-            COSObject ossObject = cosClient.getObject(bucketName, newKey);
+            String newKey = StringUtils.strip(StringUtils.replace(key,"_","/"),"/");
+            COSObject ossObject = cosClient.getObject(bucketName,newKey);
             in = ossObject.getObjectContent();
             content = ByteStreams.toByteArray(in);
         } catch (CosClientException oe) {
-            logger.error("failed to get object,Code:{},Message:{}", oe.getMessage());
-            throw new RuntimeException("failed to get object", oe);
+            logger.error("failed to get object,Code:{},Message:{}",oe.getMessage());
+            throw new RuntimeException("failed to get object",oe);
         } catch (IOException e) {
-            throw new RuntimeException("failed to read object from inputstream", e);
+            throw new RuntimeException("failed to read object from inputstream",e);
         } finally {
             cosClient.shutdown();
 

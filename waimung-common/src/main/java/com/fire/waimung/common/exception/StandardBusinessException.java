@@ -1,6 +1,6 @@
 package com.fire.waimung.common.exception;
 
-public class StandardBusinessException extends  BusinessException {
+public class StandardBusinessException extends BusinessException {
 
     private String error;
 
@@ -8,7 +8,7 @@ public class StandardBusinessException extends  BusinessException {
 
     private long timestamp = System.currentTimeMillis();
 
-    public StandardBusinessException(String error, Object... details) {
+    public StandardBusinessException(String error,Object... details) {
         super(error);
         this.error = error;
         this.details = details;

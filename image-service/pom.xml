@@ -61,9 +61,9 @@
             <optional>true</optional>
         </dependency>
         <dependency>
-            <groupId>com.fire.waimung</groupId>
+            <groupId>com.wm.common</groupId>
             <artifactId>waimung-common</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>1.0.2</version>
         </dependency>
     </dependencies>
 

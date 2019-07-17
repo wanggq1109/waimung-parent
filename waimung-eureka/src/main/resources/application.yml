@@ -5,8 +5,8 @@ spring:
     name: waimung-eureka
 eureka:
   client:
-    fetch-registry: false
-    register-with-eureka: false
+    fetch-registry: false #表示是否从ureka Server 获取注册信息，默认为true
+    register-with-eureka: false # 表示是否将自己注册到Eureka Server,默认为true
     service-url:
       defaultZone: http://127.0.0.1:${server.port}/eureka
   server:

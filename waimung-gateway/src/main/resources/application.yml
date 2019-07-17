@@ -7,6 +7,12 @@ spring:
     name: zuul-gateway
   profiles:
     active: ''
+  cloud:
+    gateway:
+      routes:
+        id: path_route
+        uri:http://jd.com
+
 eureka:
   client:
     service-url:
@@ -16,9 +22,7 @@ eureka:
     prefer-ip-address: true
     ip-address: 127.0.0.1
     instance-id: ${spring.application.name}:${server.port}
-zuul:
-  prefix: /zuul #添加路由前缀
-  retryable: true
+
 ribbon:
   ConnectTimeout: 250 #连接超时时间(ms)
   ReadTimeout: 2000 #通信超时时间(ms)

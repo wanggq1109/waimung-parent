@@ -13,23 +13,23 @@ public class TencentCOSFactory extends ObjectStorageAbstractFactory {
         TencentOSSService service = new TencentOSSService();
         Map<String, String> settings = properties.getSettings();
 
-        if(settings != null && settings.containsKey("accessKey")){
+        if (settings != null && settings.containsKey("accessKey")) {
             service.setAccessKey(settings.get("accessKey"));
         }
 
-        if(settings != null && settings.containsKey("secretKey")){
+        if (settings != null && settings.containsKey("secretKey")) {
             service.setSecretKey(settings.get("secretKey"));
         }
 
-        if(settings != null && settings.containsKey("region")){
+        if (settings != null && settings.containsKey("region")) {
             service.setRegion(settings.get("region"));
         }
 
-        if(settings != null && settings.containsKey("anonymousBucketName")){
+        if (settings != null && settings.containsKey("anonymousBucketName")) {
             service.setAnonymousBucketName(settings.get("anonymousBucketName"));
         }
 
-        if(settings != null && settings.containsKey("bucketName")){
+        if (settings != null && settings.containsKey("bucketName")) {
             service.setBucketName(settings.get("bucketName"));
         }
 
